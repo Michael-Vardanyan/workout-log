@@ -1,0 +1,23 @@
+# IntelliJ
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Java
+/target/
+*.class
+
+# Logs
+*.log
+
+# Gradle
+.gradle/
+build/
+
+# Maven
+.mvn/
+!**/src/main/**/application.yml
+!**/src/main/**/application.properties
