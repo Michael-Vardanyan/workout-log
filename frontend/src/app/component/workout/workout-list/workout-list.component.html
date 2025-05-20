@@ -1,0 +1,19 @@
+@if (workouts.length === 0) {
+  <div>
+    No workouts found.
+  </div>
+}
+
+
+@if (workouts > 0) {
+  <ul>
+    @for (workout of workouts; track workout.id) {
+      <li>
+        {{ workout.exercise }} - {{ workout.createdAt | date: 'medium' }}
+        {{ workout.sets }} Sets - {{ workout.reps }} Reps
+      </li>
+    }
+  </ul>
+
+}
+
