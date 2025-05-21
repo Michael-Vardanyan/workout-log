@@ -4,16 +4,85 @@
   </div>
 }
 
+<table mat-table [dataSource]="workouts" class="mat-elevation-z8">
 
-@if (workouts > 0) {
-  <ul>
-    @for (workout of workouts; track workout.id) {
-      <li>
-        {{ workout.exercise }} - {{ workout.createdAt | date: 'medium' }}
-        {{ workout.sets }} Sets - {{ workout.reps }} Reps
-      </li>
-    }
-  </ul>
+  <!-- Exercise Column -->
+  <ng-container matColumnDef="exercise">
+    <th mat-header-cell *matHeaderCellDef> Exercise </th>
+    <td mat-cell *matCellDef="let workout">
+      @if (editWorkoutId === workout.id) {
+        <input matInput [(ngModel)]="editedWorkout.exercise">
+      } @else {
+        {{ workout.exercise }}
+      }
+    </td>
+  </ng-container>
 
-}
+  <!-- Sets Column -->
+  <ng-container matColumnDef="sets">
+    <th mat-header-cell *matHeaderCellDef> Sets </th>
+    <td mat-cell *matCellDef="let workout">
+      @if (editWorkoutId === workout.id) {
+        <input matInput type="number" [(ngModel)]="editedWorkout.sets">
+      } @else {
+        {{ workout.sets }}
+      }
+    </td>
+  </ng-container>
+
+  <!-- Reps Column -->
+  <ng-container matColumnDef="reps">
+    <th mat-header-cell *matHeaderCellDef> Reps </th>
+    <td mat-cell *matCellDef="let workout">
+      @if (editWorkoutId === workout.id) {
+        <input matInput type="number" [(ngModel)]="editedWorkout.reps">
+      } @else {
+        {{ workout.reps }}
+      }
+    </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="weight">
+    <th mat-header-cell *matHeaderCellDef> Weight </th>
+    <td mat-cell *matCellDef="let workout">
+      @if (editWorkoutId === workout.id) {
+        <input matInput type="number" [(ngModel)]="editedWorkout.weight">
+      } @else {
+        {{ workout.weight }} kg
+      }
+    </td>
+  </ng-container>
+
+  <!-- CreatedAt Column -->
+  <ng-container matColumnDef="createdAt">
+    <th mat-header-cell *matHeaderCellDef> Date </th>
+    <td mat-cell *matCellDef="let workout"> {{ workout.createdAt | date: 'medium' }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let workout">
+      @if (editWorkoutId === workout.id) {
+        <button mat-icon-button color="primary" (click)="onSaveEdit(workout.id)">
+          <mat-icon>check</mat-icon>
+        </button>
+        <button mat-icon-button (click)="cancelEdit()">
+          <mat-icon>close</mat-icon>
+        </button>
+      } @else {
+        <button mat-icon-button color="primary" (click)="startEdit(workout)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="onDelete(workout.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      }
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>
 

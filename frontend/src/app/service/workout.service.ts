@@ -14,4 +14,20 @@ export class WorkoutService {
     return this.http.get<Workout[]>(this.workoutsURL);
   }
 
+  getWorkout(id: string) {
+    return this.http.get<Workout>(`${this.workoutsURL}/${id}`)
+  }
+
+  createWorkout(workout: Workout) {
+    return this.http.post<Workout>(this.workoutsURL, workout);
+  }
+
+  updateWorkout(id: string, workout: Workout) {
+    return this.http.put(`${this.workoutsURL}/${id}`, workout)
+  }
+
+  deleteWorkout(id: string) {
+    return this.http.delete(`${this.workoutsURL}/${id}`);
+  }
+
 }
